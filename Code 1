@@ -1,0 +1,56 @@
+import turtle, random
+
+window = turtle.Screen()
+window.bgcolor('grey')
+sten = turtle.Turtle()
+
+sten.speed(0)
+sten.color('gold')
+sten.pensize(10)
+sten.penup()
+sten.goto(200, 200)
+sten.pendown()
+sten.goto(200, -200)
+sten.goto(-200, -200)
+sten.goto(-200, 200)
+sten.hideturtle()
+
+balls = []
+bolls = 30
+forms = ['square', 'triangle', 'circle', 'turtle']
+
+for i in range(bolls):
+    ball = turtle.Turtle()
+    ball.shape(random.choice(forms))
+    #ball.shape('circle')
+    red = random.random()
+    blue = random.random()
+    green = random.random()
+    ball.color(red, green, blue)
+    ball.penup()
+    ball.hideturtle()
+    ball.speed(0)
+    ball.showturtle()
+    ball.setpos(random.randint(-190, 190), random.randint(70, 190))
+    ball.speedY = 0
+    ball.speedX = random.randint(-3, 3)
+    ball.gravitation = (random.randint(15, 30) / 100)
+    ball.randleft = random.randint(-5, 5)
+    balls.append(ball)
+
+window.tracer(75)
+
+while True:
+    window.update()
+    for ball in balls:
+        ball.left(ball.randleft)
+        ball.speed(0)
+        ball.speedY = ball.speedY - ball.gravitation
+        ball.goto(ball.xcor()+ball.speedX, ball.ycor() + ball.speedY)
+        if ball.xcor()+ball.speedX >= 190 or ball.xcor()+ball.speedX <= -190:
+            ball.speedX = -ball.speedX
+        if ball.ycor() <= -190:
+            ball.sety(-190)
+            ball.speedY = -ball.speedY
+ 
+window.mainloop()
